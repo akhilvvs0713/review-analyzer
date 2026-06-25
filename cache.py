@@ -2,7 +2,9 @@ import redis
 import json
 
 import os
-redis_client = redis.Redis(host=os.getenv("REDIS_HOST", "localhost"), port=6379, db=0)
+
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379")
+redis_client = redis.from_url(REDIS_URL)
 
 def get_cache(key: str):
     data = redis_client.get(key)
